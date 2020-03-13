@@ -16,5 +16,8 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sucrase": "^3.12.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
