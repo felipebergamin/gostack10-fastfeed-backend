@@ -5,5 +5,12 @@
   "repository": "git@github.com:felipebergamin/gostack10-fastfeed-backend.git",
   "author": "Felipe Bergamin <felipebergamin6@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.12.1"
+  }
 }
