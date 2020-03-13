@@ -1,0 +1,9 @@
+{
+  "name": "gostack10-fastfeed-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:felipebergamin/gostack10-fastfeed-backend.git",
+  "author": "Felipe Bergamin <felipebergamin6@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
