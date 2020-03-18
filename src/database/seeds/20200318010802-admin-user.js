@@ -1,9 +1,7 @@
-'use strict';
-
 const bcrypt = require('bcryptjs');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     return queryInterface.bulkInsert(
       'users',
       [

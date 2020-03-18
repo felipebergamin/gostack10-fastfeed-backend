@@ -4,19 +4,19 @@ import routes from './routes';
 
 class App {
   constructor() {
-    this._app = express();
+    this.app = express();
 
     this.middlewares();
     this.routes();
   }
 
   middlewares() {
-    this._app.use(express.json());
+    this.app.use(express.json());
   }
 
   routes() {
-    this._app.use(routes);
+    this.app.use(routes);
   }
 }
 
-export default new App()._app;
+export default new App().app;
