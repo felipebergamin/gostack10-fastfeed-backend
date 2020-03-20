@@ -18,4 +18,9 @@ router
   .post(CourierController.store)
   .get(CourierController.list);
 
+router
+  .route('/couriers/:id')
+  .delete(CourierController.delete)
+  .put(CourierController.update);
+
 export default router;
