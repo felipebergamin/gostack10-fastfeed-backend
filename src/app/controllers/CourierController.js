@@ -1,30 +1,11 @@
-import * as Yup from 'yup';
-
 import Courier from '../models/Courier';
-import formatError from '../../helpers/ValidationErrorFormatter';
 
 class CourierController {
   async store(req, res) {
-    const Schema = Yup.object().shape({
-      name: Yup.string()
-        .trim()
-        .required('Name is required'),
-      email: Yup.string()
-        .trim()
-        .required('E-mail is required')
-        .email('Please, enter a valid e-mail address'),
-    });
-
     try {
-      const values = await Schema.validate(req.body, { abortEarly: false });
-
-      const created = await Courier.create(values);
+      const created = await Courier.create(req.body);
       return res.json(created);
     } catch (err) {
-      if (err.name === 'ValidationError') {
-        return res.status(400).json(formatError(err));
-      }
-
       return res.status(500).end();
     }
   }
@@ -48,15 +29,7 @@ class CourierController {
   }
 
   async update(req, res) {
-    const Schema = Yup.object().shape({
-      name: Yup.string().trim(),
-      email: Yup.string()
-        .trim()
-        .email('Please, enter a valid e-mail address'),
-    });
-
     try {
-      const values = await Schema.validate(req.body, { abortEarly: false });
       const { id } = req.params;
 
       const courier = await Courier.findByPk(id);
@@ -65,13 +38,9 @@ class CourierController {
         return res.status(404).end();
       }
 
-      await courier.update(values);
+      await courier.update(req.body);
       return res.json(courier);
     } catch (err) {
-      if (err.name === 'ValidationError') {
-        return res.status(400).json(formatError(err));
-      }
-
       return res.status(500).end();
     }
   }

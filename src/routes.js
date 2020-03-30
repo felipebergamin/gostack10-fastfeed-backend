@@ -7,6 +7,11 @@ import RecipientController from './app/controllers/RecipientController';
 import CourierController from './app/controllers/CourierController';
 import OrderController from './app/controllers/OrderController';
 
+import validateCourierStore from './app/validators/CourierStore';
+import validateCourierUpdate from './app/validators/CourierUpdate';
+import validateOrderStore from './app/validators/OrderStore';
+import validateOrderUpdate from './app/validators/OrderUpdate';
+
 const router = new Router();
 
 router.route('/sessions').post(SessionController.store);
@@ -16,17 +21,22 @@ router.route('/recipients').post(RecipientController.store);
 
 router
   .route('/couriers')
-  .post(CourierController.store)
+  .post(validateCourierStore, CourierController.store)
   .get(CourierController.list);
 
 router
   .route('/couriers/:id')
   .delete(CourierController.delete)
-  .put(CourierController.update);
+  .put(validateCourierUpdate, CourierController.update);
 
 router
   .route('/orders')
-  .post(OrderController.store)
+  .post(validateOrderStore, OrderController.store)
   .get(OrderController.list);
+
+router
+  .route('/orders/:id')
+  .put(validateOrderUpdate, OrderController.update)
+  .delete(OrderController.delete);
 
 export default router;
