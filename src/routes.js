@@ -6,6 +6,7 @@ import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipientController';
 import CourierController from './app/controllers/CourierController';
 import OrderController from './app/controllers/OrderController';
+import PendingOrdersController from './app/controllers/PendingOrderController';
 
 import validateCourierStore from './app/validators/CourierStore';
 import validateCourierUpdate from './app/validators/CourierUpdate';
@@ -23,6 +24,12 @@ router
   .route('/couriers')
   .post(validateCourierStore, CourierController.store)
   .get(CourierController.list);
+
+router.get(
+  '/couriers/:courierId/pending/:orderId',
+  PendingOrdersController.get
+);
+router.get('/couriers/:courierId/pending', PendingOrdersController.list);
 
 router
   .route('/couriers/:id')
