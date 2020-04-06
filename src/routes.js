@@ -10,6 +10,8 @@ import PendingOrdersController from './app/controllers/PendingOrderController';
 import DeliveredOrderController from './app/controllers/DeliveredOrderController';
 import DeliveryController from './app/controllers/DeliveryController';
 import WithdrawController from './app/controllers/WithdrawController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
+import CancellationController from './app/controllers/CancellationController';
 
 import validateCourierStore from './app/validators/CourierStore';
 import validateCourierUpdate from './app/validators/CourierUpdate';
@@ -19,6 +21,8 @@ import validateOrderUpdate from './app/validators/OrderUpdate';
 const router = new Router();
 
 router.route('/sessions').post(SessionController.store);
+
+router.post('/orders/:orderId/problems', DeliveryProblemController.store);
 
 router.use(authMiddleware);
 router.route('/recipients').post(RecipientController.store);
@@ -57,5 +61,12 @@ router
 
 router.post('/orders/:orderId/delivery/:courierId', DeliveryController.store);
 router.post('/orders/:orderId/withdraw/:courierId', WithdrawController.store);
+router.get('/orders/:orderId/problems', DeliveryProblemController.get);
+
+router.get('/delivery-problems', DeliveryProblemController.list);
+router.delete(
+  '/delivery-problems/:problemId/cancel-delivery',
+  CancellationController.store
+);
 
 export default router;
