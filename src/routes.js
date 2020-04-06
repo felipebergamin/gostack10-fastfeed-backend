@@ -8,6 +8,8 @@ import CourierController from './app/controllers/CourierController';
 import OrderController from './app/controllers/OrderController';
 import PendingOrdersController from './app/controllers/PendingOrderController';
 import DeliveredOrderController from './app/controllers/DeliveredOrderController';
+import DeliveryController from './app/controllers/DeliveryController';
+import WithdrawController from './app/controllers/WithdrawController';
 
 import validateCourierStore from './app/validators/CourierStore';
 import validateCourierUpdate from './app/validators/CourierUpdate';
@@ -52,5 +54,8 @@ router
   .route('/orders/:id')
   .put(validateOrderUpdate, OrderController.update)
   .delete(OrderController.delete);
+
+router.post('/orders/:orderId/delivery/:courierId', DeliveryController.store);
+router.post('/orders/:orderId/withdraw/:courierId', WithdrawController.store);
 
 export default router;
