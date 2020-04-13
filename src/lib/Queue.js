@@ -31,8 +31,13 @@ class Queue {
     jobs.forEach(job => {
       const { bee, handle } = this.queues[job.key];
 
-      bee.process(handle);
+      bee.on('failed', this.handleFailure).process(handle);
     });
+  }
+
+  // TODO: send this error to sentry
+  handleFailure(job, err) {
+    console.error(`Queue ${job.queue.name} FAILED with:`, err);
   }
 }
 
