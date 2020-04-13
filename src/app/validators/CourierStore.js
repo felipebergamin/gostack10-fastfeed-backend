@@ -13,6 +13,7 @@ export default async function(req, res, next) {
           .trim()
           .required('E-mail is required')
           .email('Please, enter a valid e-mail address'),
+        avatar_id: Yup.number('Avatar inválido').notRequired(),
       })
       .validate(req.body, { abortEarly: false });
 

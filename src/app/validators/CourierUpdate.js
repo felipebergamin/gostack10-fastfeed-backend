@@ -7,6 +7,7 @@ export default async function(req, res, next) {
     await Yup.object()
       .shape({
         name: Yup.string().trim(),
+        avatar_id: Yup.number('Avatar inválido').notRequired(),
         email: Yup.string()
           .trim()
           .email('Please, enter a valid e-mail address'),
