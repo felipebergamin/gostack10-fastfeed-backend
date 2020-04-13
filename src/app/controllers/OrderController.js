@@ -2,12 +2,33 @@ import Order from '../models/Order';
 import Courier from '../models/Courier';
 import Recipient from '../models/Recipient';
 
+import Mail from '../../lib/Mail';
+
 class OrderController {
   async store(req, res) {
     try {
       const created = await Order.create(req.body);
+      const courier = await Courier.findByPk(req.body.courier_id);
+      const recipient = await Recipient.findByPk(req.body.recipient_id);
+
+      Mail.sendMail({
+        to: `${courier.name} <${courier.email}>`,
+        subject: 'Nova entrega cadastrada',
+        template: 'new_order',
+        context: {
+          courierName: courier.name,
+          recipientName: recipient.name,
+          street: recipient.street,
+          number: recipient.number,
+          cep: recipient.cep,
+          city: recipient.city,
+          state: recipient.state,
+          complement: recipient.complement,
+        },
+      });
       return res.json(created);
     } catch (err) {
+      console.log(err);
       return res.status(500).end();
     }
   }
