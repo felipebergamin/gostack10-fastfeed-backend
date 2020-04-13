@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import Order from '../models/Order';
 import Courier from '../models/Courier';
 import Recipient from '../models/Recipient';
@@ -53,8 +55,17 @@ class OrderController {
   }
 
   async list(req, res) {
+    const { q } = req.query;
+
+    const where = q
+      ? {
+          product: { [Op.like]: `%${q}%` },
+        }
+      : {};
+
     try {
       const orders = await Order.findAll({
+        where,
         include: [
           {
             model: Courier,
