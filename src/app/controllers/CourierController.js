@@ -1,4 +1,7 @@
+import { Op } from 'sequelize';
+
 import Courier from '../models/Courier';
+import File from '../models/File';
 
 class CourierController {
   async store(req, res) {
@@ -10,8 +13,25 @@ class CourierController {
     }
   }
 
-  async list(_, res) {
-    const couriers = await Courier.findAll();
+  async list(req, res) {
+    const { q } = req.query;
+
+    const where = q
+      ? {
+          name: { [Op.like]: `%${q}%` },
+        }
+      : {};
+
+    const couriers = await Courier.findAll({
+      where,
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+        },
+      ],
+    });
+
     return res.json(couriers);
   }
 
