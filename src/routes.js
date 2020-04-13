@@ -1,5 +1,7 @@
 import { Router } from 'express';
+import multer from 'multer';
 
+import multerConfig from './config/multer';
 import authMiddleware from './app/middlewares/auth';
 
 import SessionController from './app/controllers/SessionController';
@@ -19,6 +21,7 @@ import validateOrderStore from './app/validators/OrderStore';
 import validateOrderUpdate from './app/validators/OrderUpdate';
 
 const router = new Router();
+const upload = multer(multerConfig);
 
 router.route('/sessions').post(SessionController.store);
 
@@ -68,5 +71,9 @@ router.delete(
   '/delivery-problems/:problemId/cancel-delivery',
   CancellationController.store
 );
+
+router.post('/files', upload.single('file'), (req, res) => {
+  return res.json({ ok: true });
+});
 
 export default router;
