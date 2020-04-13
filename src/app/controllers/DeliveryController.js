@@ -6,6 +6,7 @@ import Courier from '../models/Courier';
 class DeliveryController {
   async store(req, res) {
     const { courierId, orderId } = req.params;
+    const { signature_id } = req.body;
 
     const courier = await Courier.findByPk(courierId);
 
@@ -26,7 +27,7 @@ class DeliveryController {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    order.set({ end_date: new Date() });
+    order.set({ end_date: new Date(), signature_id });
     await order.save();
 
     return res.json(order);

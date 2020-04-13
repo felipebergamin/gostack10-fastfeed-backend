@@ -20,6 +20,7 @@ import validateCourierStore from './app/validators/CourierStore';
 import validateCourierUpdate from './app/validators/CourierUpdate';
 import validateOrderStore from './app/validators/OrderStore';
 import validateOrderUpdate from './app/validators/OrderUpdate';
+import validateDeliveryStore from './app/validators/DeliveryStore';
 
 const router = new Router();
 const upload = multer(multerConfig);
@@ -63,7 +64,11 @@ router
   .put(validateOrderUpdate, OrderController.update)
   .delete(OrderController.delete);
 
-router.post('/orders/:orderId/delivery/:courierId', DeliveryController.store);
+router.post(
+  '/orders/:orderId/delivery/:courierId',
+  validateDeliveryStore,
+  DeliveryController.store
+);
 router.post('/orders/:orderId/withdraw/:courierId', WithdrawController.store);
 router.get('/orders/:orderId/problems', DeliveryProblemController.get);
 
