@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import formatValidationError from '../../helpers/ValidationErrorFormatter';
 import Recipient from '../models/Recipient';
@@ -28,6 +29,18 @@ class RecipientController {
 
       return res.status(500).end();
     }
+  }
+
+  async list(req, res) {
+    const { q } = req.query;
+
+    const where = q ? { name: { [Op.iLike]: `%${q}%` } } : {};
+
+    const recipients = await Recipient.findAll({
+      where,
+    });
+
+    return res.json(recipients);
   }
 }
 

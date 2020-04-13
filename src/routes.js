@@ -30,7 +30,11 @@ router.route('/sessions').post(SessionController.store);
 router.post('/orders/:orderId/problems', DeliveryProblemController.store);
 
 router.use(authMiddleware);
-router.route('/recipients').post(RecipientController.store);
+
+router
+  .route('/recipients')
+  .post(RecipientController.store)
+  .get(RecipientController.list);
 
 router
   .route('/couriers')
