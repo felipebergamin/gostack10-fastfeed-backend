@@ -14,6 +14,7 @@ import DeliveryController from './app/controllers/DeliveryController';
 import WithdrawController from './app/controllers/WithdrawController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import CancellationController from './app/controllers/CancellationController';
+import FileController from './app/controllers/FileController';
 
 import validateCourierStore from './app/validators/CourierStore';
 import validateCourierUpdate from './app/validators/CourierUpdate';
@@ -72,8 +73,6 @@ router.delete(
   CancellationController.store
 );
 
-router.post('/files', upload.single('file'), (req, res) => {
-  return res.json({ ok: true });
-});
+router.post('/files', upload.single('file'), FileController.store);
 
 export default router;
