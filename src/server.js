@@ -2,4 +2,4 @@ import server from './App';
 
 import './database';
 
-server.listen(3000);
+server.listen(8000);
