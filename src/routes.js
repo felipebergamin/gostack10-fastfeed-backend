@@ -21,6 +21,7 @@ import validateCourierUpdate from './app/validators/CourierUpdate';
 import validateOrderStore from './app/validators/OrderStore';
 import validateOrderUpdate from './app/validators/OrderUpdate';
 import validateDeliveryStore from './app/validators/DeliveryStore';
+import validateRecipientStore from './app/validators/RecipientStore';
 
 const router = new Router();
 const upload = multer(multerConfig);
@@ -33,10 +34,13 @@ router.use(authMiddleware);
 
 router
   .route('/recipients')
-  .post(RecipientController.store)
+  .post(validateRecipientStore, RecipientController.store)
   .get(RecipientController.list);
 
-router.route('/recipients/:id').delete(RecipientController.delete);
+router
+  .route('/recipients/:id')
+  .delete(RecipientController.delete)
+  .put(validateRecipientStore, RecipientController.update);
 
 router
   .route('/couriers')
