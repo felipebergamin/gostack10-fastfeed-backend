@@ -39,6 +39,7 @@ router
 
 router
   .route('/recipients/:id')
+  .get(RecipientController.view)
   .delete(RecipientController.delete)
   .put(validateRecipientStore, RecipientController.update);
 

@@ -4,6 +4,14 @@ import formatValidationError from '../../helpers/ValidationErrorFormatter';
 import Recipient from '../models/Recipient';
 
 class RecipientController {
+  async view(req, res) {
+    const recipient = await Recipient.findByPk(req.params.id);
+
+    if (!recipient) return res.status(404).end();
+
+    return res.json(recipient);
+  }
+
   async store(req, res) {
     try {
       const saved = await Recipient.create(req.body);
