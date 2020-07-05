@@ -1,4 +1,7 @@
 import Order from '../models/Order';
+import Recipient from '../models/Recipient';
+import Courier from '../models/Courier';
+import File from '../models/File';
 
 class PendingOrderController {
   async list(req, res) {
@@ -10,6 +13,17 @@ class PendingOrderController {
         canceled_at: null,
         end_date: null,
       },
+      include: [
+        { model: Recipient, as: 'recipient' },
+        {
+          model: Courier,
+          as: 'courier',
+        },
+        {
+          model: File,
+          as: 'signature',
+        },
+      ],
     });
 
     if (!pendingOrders || pendingOrders.length === 0) {
