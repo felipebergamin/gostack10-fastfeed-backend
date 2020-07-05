@@ -22,11 +22,13 @@ import validateOrderStore from './app/validators/OrderStore';
 import validateOrderUpdate from './app/validators/OrderUpdate';
 import validateDeliveryStore from './app/validators/DeliveryStore';
 import validateRecipientStore from './app/validators/RecipientStore';
+import CourierAuthController from './app/controllers/CourierAuthController';
 
 const router = new Router();
 const upload = multer(multerConfig);
 
 router.route('/sessions').post(SessionController.store);
+router.route('/auth-courier').post(CourierAuthController.store);
 
 router.post('/orders/:orderId/problems', DeliveryProblemController.store);
 
