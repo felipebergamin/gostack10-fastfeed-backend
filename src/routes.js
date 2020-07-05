@@ -36,6 +36,8 @@ router
   .post(RecipientController.store)
   .get(RecipientController.list);
 
+router.route('/recipients/:id').delete(RecipientController.delete);
+
 router
   .route('/couriers')
   .post(validateCourierStore, CourierController.store)
