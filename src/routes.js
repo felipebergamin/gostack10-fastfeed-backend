@@ -55,6 +55,7 @@ router.get('/couriers/:courierId/delivered', DeliveredOrderController.list);
 
 router
   .route('/couriers/:id')
+  .get(CourierController.view)
   .delete(CourierController.delete)
   .put(validateCourierUpdate, CourierController.update);
 

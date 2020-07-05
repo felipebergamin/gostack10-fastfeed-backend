@@ -4,6 +4,25 @@ import Courier from '../models/Courier';
 import File from '../models/File';
 
 class CourierController {
+  async view(req, res) {
+    try {
+      const courier = await Courier.findByPk(req.params.id, {
+        include: [
+          {
+            model: File,
+            as: 'avatar',
+          },
+        ],
+      });
+
+      if (!courier) return res.status(404).end();
+
+      return res.json(courier);
+    } catch (err) {
+      return res.status(500).end();
+    }
+  }
+
   async store(req, res) {
     try {
       const created = await Courier.create(req.body);
