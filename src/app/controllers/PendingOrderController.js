@@ -1,7 +1,6 @@
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
 import Courier from '../models/Courier';
-import File from '../models/File';
 
 class PendingOrderController {
   async list(req, res) {
@@ -18,10 +17,6 @@ class PendingOrderController {
         {
           model: Courier,
           as: 'courier',
-        },
-        {
-          model: File,
-          as: 'signature',
         },
       ],
     });

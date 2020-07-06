@@ -83,6 +83,8 @@ router.post(
   validateDeliveryStore,
   DeliveryController.store
 );
+router.get('/orders/:courierId/delivered', DeliveryController.list);
+
 router.post('/orders/:orderId/withdraw/:courierId', WithdrawController.store);
 router.get('/orders/:orderId/problems', DeliveryProblemController.get);
 

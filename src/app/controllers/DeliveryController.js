@@ -2,6 +2,8 @@ import { Op } from 'sequelize';
 
 import Order from '../models/Order';
 import Courier from '../models/Courier';
+import Recipient from '../models/Recipient';
+import File from '../models/File';
 
 class DeliveryController {
   async store(req, res) {
@@ -31,6 +33,31 @@ class DeliveryController {
     await order.save();
 
     return res.json(order);
+  }
+
+  async list(req, res) {
+    const { courierId: courier_id } = req.params;
+
+    const deliveriesCompleted = await Order.findAll({
+      where: {
+        courier_id,
+        start_date: { [Op.not]: null },
+        end_date: { [Op.not]: null },
+      },
+      include: [
+        { model: Recipient, as: 'recipient' },
+        {
+          model: Courier,
+          as: 'courier',
+        },
+        {
+          model: File,
+          as: 'signature',
+        },
+      ],
+    });
+
+    return res.json(deliveriesCompleted);
   }
 }
 
