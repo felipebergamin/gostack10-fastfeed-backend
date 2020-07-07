@@ -1,4 +1,7 @@
+import { Op } from 'sequelize';
+
 import DeliveryProblem from '../models/DeliveryProblem';
+import Order from '../models/Order';
 
 class DeliveryProblemController {
   async store(req, res) {
@@ -12,8 +15,23 @@ class DeliveryProblemController {
   }
 
   async list(req, res) {
+    const { q } = req.query;
+
+    const where = q
+      ? {
+          description: { [Op.like]: `%${q}%` },
+        }
+      : {};
+
     const problems = await DeliveryProblem.findAll({
-      include: ['order'],
+      where,
+      include: [
+        {
+          model: Order,
+          as: 'order',
+          include: ['recipient', 'courier'],
+        },
+      ],
     });
 
     return res.json(problems);
