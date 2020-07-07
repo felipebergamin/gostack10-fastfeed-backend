@@ -90,7 +90,7 @@ router.post('/orders/:orderId/withdraw/:courierId', WithdrawController.store);
 router.get('/orders/:orderId/problems', DeliveryProblemController.get);
 
 router.get('/delivery-problems', DeliveryProblemController.list);
-router.delete(
+router.post(
   '/delivery-problems/:problemId/cancel-delivery',
   CancellationController.store
 );
