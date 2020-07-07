@@ -5,8 +5,11 @@ import Courier from '../models/Courier';
 class PendingOrderController {
   async list(req, res) {
     const { courierId } = req.params;
+    const { limit, offset } = req.query;
 
     const pendingOrders = await Order.findAll({
+      limit,
+      offset,
       where: {
         courier_id: courierId,
         canceled_at: null,
