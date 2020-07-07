@@ -75,6 +75,7 @@ router
 
 router
   .route('/orders/:id')
+  .get(OrderController.view)
   .put(validateOrderUpdate, OrderController.update)
   .delete(OrderController.delete);
 

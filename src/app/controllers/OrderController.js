@@ -9,6 +9,14 @@ import Queue from '../../lib/Queue';
 import NewOrderMail from '../jobs/NewOrderMail';
 
 class OrderController {
+  async view(req, res) {
+    const order = await Order.findByPk(req.params.id);
+
+    if (!order) return res.status(404).end();
+
+    return res.json(order);
+  }
+
   async store(req, res) {
     try {
       const created = await Order.create(req.body);
