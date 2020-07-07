@@ -1,6 +1,9 @@
 import { Op } from 'sequelize';
 
 import Order from '../models/Order';
+import Courier from '../models/Courier';
+import Recipient from '../models/Recipient';
+import File from '../models/File';
 
 class DeliveredOrderController {
   async list(req, res) {
@@ -12,6 +15,20 @@ class DeliveredOrderController {
         canceled_at: null,
         [Op.not]: { end_date: null },
       },
+      include: [
+        {
+          model: Courier,
+          as: 'courier',
+        },
+        {
+          model: Recipient,
+          as: 'recipient',
+        },
+        {
+          model: File,
+          as: 'signature',
+        },
+      ],
     });
 
     if (!orders || orders.length === 0) {
