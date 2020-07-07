@@ -7,9 +7,12 @@ import File from '../models/File';
 
 class DeliveredOrderController {
   async list(req, res) {
+    const { limit, offset } = req.query;
     const { courierId } = req.params;
 
     const orders = await Order.findAll({
+      limit,
+      offset,
       where: {
         courier_id: courierId,
         canceled_at: null,
