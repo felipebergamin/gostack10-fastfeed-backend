@@ -13,6 +13,7 @@ class Order extends Model {
           get() {
             if (this.canceled_at) return 'cancelado';
             if (this.end_date) return 'entregue';
+            if (this.start_date) return 'retirado';
             return 'pendente';
           },
         },
