@@ -1,12 +1,12 @@
 export default {
-  host: 'smtp.mailtrap.io',
-  port: 2525,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   auth: {
-    user: '593237c0ed5a0b',
-    pass: '97f066ac4cf38d',
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
   secure: false,
   default: {
-    from: 'Felipe Bergamin <noreply@fastfeed.com>',
+    from: process.env.MAIL_FROM,
   },
 };
