@@ -17,6 +17,15 @@ class Order extends Model {
             return 'pendente';
           },
         },
+        step: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            if (this.canceled_at) return 0;
+            if (this.end_date) return 3;
+            if (this.start_date) return 2;
+            return 1;
+          },
+        },
       },
       {
         sequelize,
